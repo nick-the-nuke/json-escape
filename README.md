@@ -14,3 +14,25 @@ Download the latest binary for your platform from the
 | macOS x86_64 | `json-escape-x86_64-apple-darwin.tar.gz` |
 | macOS ARM64 | `json-escape-aarch64-apple-darwin.tar.gz` |
 | Windows x86_64 | `json-escape-x86_64-pc-windows-msvc.zip` |
+
+## Usage
+
+```
+echo "Hello / World" | json-escape
+"Hello \/ World"
+```
+
+## Flags
+
+### `--no-escape-slash`
+
+By default, `json-escape` escapes forward slashes (`/` → `\/`), which is safe
+for HTML/script embedding. Use `--no-escape-slash` to output `/` as-is:
+
+```
+echo "https://example.com" | json-escape
+"https:\/\/example.com"
+
+echo "https://example.com" | json-escape --no-escape-slash
+"https://example.com"
+```
