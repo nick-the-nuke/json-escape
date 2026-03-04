@@ -8,7 +8,9 @@ fn main() {
         }
     }
     let mut input = String::new();
-    io::stdin().read_to_string(&mut input).expect("Failed to read stdin");
+    io::stdin()
+        .read_to_string(&mut input)
+        .expect("Failed to read stdin");
     // Strip trailing newline added by shell piping
     if input.ends_with('\n') {
         input.pop();
