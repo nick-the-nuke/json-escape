@@ -29,3 +29,18 @@ jobs:
       - name: Strip binary (non-Windows)
         if: ${{ !contains(matrix.target, 'windows') }}
         run: strip target/${{ matrix.target }}/release/json-escape
+      - name: Archive (Unix)
+        if: ${{ !contains(matrix.target, 'windows') }}
+        run: |
+          cd target/${{ matrix.target }}/release
+          tar czf json-escape-${{ matrix.target }}.tar.gz json-escape
+      - name: Archive (Windows)
+        if: ${{ contains(matrix.target, 'windows') }}
+        shell: pwsh
+        run: |
+          cd target/${{ matrix.target }}/release
+          Compress-Archive json-escape.exe json-escape-${{ matrix.target }}.zip
+      - name: Upload to release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: target/${{ matrix.target }}/release/json-escape-${{ matrix.target }}.*
