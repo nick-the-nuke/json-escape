@@ -16,5 +16,11 @@ fn main() {
             input.pop();
         }
     }
-    let _ = no_escape_slash; // used in next commit
+    let escaped: String = json_escape::escape_str(&input).collect();
+    let result = if no_escape_slash {
+        escaped
+    } else {
+        escaped.replace('/', "\\/")
+    };
+    println!("\"{}\"", result);
 }
