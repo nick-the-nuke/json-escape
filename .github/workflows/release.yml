@@ -30,9 +30,17 @@ jobs:
         with:
           target: ${{ matrix.target }}
           args: --release
+      - name: Install cross-strip tool (aarch64 Linux)
+        if: ${{ matrix.target == 'aarch64-unknown-linux-gnu' }}
+        run: sudo apt-get update && sudo apt-get install -y binutils-aarch64-linux-gnu
       - name: Strip binary (non-Windows)
         if: ${{ !contains(matrix.target, 'windows') }}
-        run: strip target/${{ matrix.target }}/release/json-escape
+        run: |
+          if [ "${{ matrix.target }}" = "aarch64-unknown-linux-gnu" ]; then
+            aarch64-linux-gnu-strip target/${{ matrix.target }}/release/json-escape
+          else
+            strip target/${{ matrix.target }}/release/json-escape
+          fi
       - name: Archive (Unix)
         if: ${{ !contains(matrix.target, 'windows') }}
         run: |
