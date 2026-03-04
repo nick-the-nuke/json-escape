@@ -1,0 +1,17 @@
+[package]
+name = "json-escape-cli"
+version = "0.1.0"
+edition = "2021"
+description = "A CLI tool to JSON-escape strings read from stdin"
+license = "MIT"
+repository = "https://github.com/nick-the-nuke/json-escape"
+readme = "README.md"
+keywords = ["json", "escape", "cli"]
+categories = ["command-line-utilities"]
+
+[[bin]]
+name = "json-escape"
+path = "src/main.rs"
+
+[dependencies]
+json-escape = "0.3"
